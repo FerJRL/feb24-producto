@@ -10,4 +10,6 @@ export const getClientById = async (id) => {
     },
   });
   return response.data;
+
+  //commentary
 };
