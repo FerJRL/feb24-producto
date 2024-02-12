@@ -4,7 +4,7 @@ import v2 from "./v2.mjs";
 import cors from "cors";
 import axios from "axios";
 import { ObjectId } from "mongodb";
-import products from "./conn.mjs";
+import sofas from "./conn.mjs";
 
 const app = express();
 const port = 5001;
@@ -30,20 +30,15 @@ const verifyToken = async (req, res, next) => {
       const user = response.data.user;
 
       if (req.params.id != null) {
-        const product = await products.findOne({
+        const sofa = await sofas.findOne({
           _id: new ObjectId(req.params.id),
         });
-        if (product.userID != user._id) {
+        if (sofa.anfitrion != user.email) {
           res.status(402).send("Unauthorized action");
           return;
-        } else if (req.params.id1 != undefined && req.params.id2 != undefined) {
-          if (req.params.id1 != user._id && req.params.id2 != user._id) {
-            res.status(402).send("Unauthorized action");
-            return;
-          }
         }
-      } else if (req.method == "POST" && req.body.userID != user._id) {
-        res.status(402).send("Unauthorized action");
+      } else if (req.method == "POST" && req.body.anfitrion != user.email) {
+        res.status(402).send(user.email);
         return;
       }
     }

@@ -10,5 +10,5 @@ try {
   console.error(e);
 }
 let db = conn.db("Feb2024");
-let products = db.collection("products");
-export default products;
+let sofas = db.collection("sofas");
+export default sofas;

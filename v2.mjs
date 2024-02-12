@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import products from "./conn.mjs";
+import sofas from "./conn.mjs";
 import express from "express";
 import { getFiltros, getSortByDate } from "./help.mjs";
 import { getClientById } from "./api.mjs";
@@ -15,13 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", async (req, res) => {
   const filtros = await getFiltros(req);
   const sort = getSortByDate(req);
-  const results = await products.find(filtros).sort(sort).toArray();
+  const results = await sofas.find(filtros).sort(sort).toArray();
   res.send(results).status(200);
 });
 
 app.delete("/:id", async (req, res) => {
   try {
-    const result = await products.deleteOne({
+    const result = await sofas.deleteOne({
       _id: new ObjectId(req.params.id),
     });
     //delete the photos
